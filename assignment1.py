@@ -16,6 +16,23 @@ Description:
 This script calculates past and future dates based on a given start date 
 and a divisor of a year. It validates the input, handles leap years, and 
 accurately transitions between days, months, and years.
+
+Citations and References:
+1. Seneca College. https://seneca-ictoer.github.io/OPS445/A-Labs/Labs1-5  
+   - Used for understanding concepts like leap years, date validation, and Python basics.
+2. Codecademy. Retrieved February 27, 2024, from https://www.codecademy.com/resources/docs/python  
+   - Referenced for splitting strings and general Python syntax.
+3. Lemonaki, D. (2022). Splitting a string in Python.  
+   Retrieved from https://www.freecodecamp.org/news/how-to-split-a-string-in-python/  
+   - Provided insights into string manipulation techniques used in the `valid_date()` function.
+4. GfG. (2023). Logical operators in Python with examples.  
+   Retrieved from https://www.geeksforgeeks.org/python-logical-operators/  
+   - Assisted with constructing logical conditions in `leap_year()` and `valid_date()`.
+5. Real Python. (2023). Defining your own Python function.  
+   Retrieved from https://realpython.com/defining-your-own-python-function/  
+   - Inspired the use of clear function definitions and docstring formatting.
+6. Loops. LearnPython.org. Retrieved from https://www.learnpython.org/en/Loops  
+   - Helped in structuring loops in the `dbda()` function for calculating future and past dates.
 '''
 
 
