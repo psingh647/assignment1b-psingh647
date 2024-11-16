@@ -75,53 +75,60 @@ def mon_max(month: int, year: int) -> int:
         return 29
     return mon_dict.get(month, 0)
 
-def after(date: str) -> str:  
-    '''
-    after() -> date for next day in YYYY-MM-DD string format
+def after(date: str) -> str:
+    """
+    Calculates the next day's date based on the given date.
+    
+    Refactored as required to use the `leap_year()` and `mon_max()` functions to handle
+    transitions between days, months, and years.
 
-    Return the date for the next day of the given date in YYYY-MM-DD format.
-    This function has been tested to work for year after 1582
-    '''
+    Args:
+        date (str): The current date in YYYY-MM-DD format.
+
+    Returns:
+        str: The next day's date in YYYY-MM-DD format.
+    """
+    # Split the date into year, month, and day
     year, mon, day = (int(x) for x in date.split('-'))
-    day += 1  # Increment the day
+    day += 1  # Move to the next day
 
-    # Leap year logic
-    lyear = year % 4
-    if lyear == 0:
-        leap_flag = True
-    else:
-        leap_flag = False  # Not a leap year
-
-    lyear = year % 100
-    if lyear == 0:
-        leap_flag = False  # Not a leap year
-
-    lyear = year % 400
-    if lyear == 0:
-        leap_flag = True  # Leap year
-
-    # Month-to-days mapping
-    mon_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
-                7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
-
-    # Adjust February for leap years
-    if mon == 2 and leap_flag:
-        mon_max = 29
-    else:
-        mon_max = mon_dict[mon]
-
-    # Handle overflow to the next month or year
-    if day > mon_max:
+    # Check if the day exceeds the max for the current month
+    if day > mon_max(mon, year):  # Uses mon_max() for max days
+        day = 1  # Reset to the first day of the next month
         mon += 1
-        if mon > 12:
-            year += 1
+        if mon > 12:  # If month exceeds December, reset to January and increment year
             mon = 1
-        day = 1  # Reset day to 1 for the new month
-    return f"{year}-{mon:02}-{day:02}" 
+            year += 1
+
+    # Return the formatted next day's date
+    return f"{year}-{mon:02}-{day:02}"
 
 def before(date: str) -> str:
-    "Returns previous day's date as YYYY-MM-DD"
-    ...
+    """
+    Calculates the previous day's date based on the given date.
+    
+    Handles transitions between months and years, and accounts for leap years.
+
+    Args:
+        date (str): The current date in YYYY-MM-DD format.
+
+    Returns:
+        str: The previous day's date in YYYY-MM-DD format.
+    """
+    # Split the date into year, month, and day
+    year, mon, day = (int(x) for x in date.split('-'))
+    day -= 1  # Move to the previous day
+
+    # Check if the day is less than 1 (previous month's last day)
+    if day < 1:
+        mon -= 1  # Move to the previous month
+        if mon < 1:  # If month is less than January, move to December of the previous year
+            mon = 12
+            year -= 1
+        day = mon_max(mon, year)  # Set the day to the max of the previous month
+
+    # Return the formatted previous day's date
+    return f"{year}-{mon:02}-{day:02}"
 
 def usage():
     "Print a usage message to the user"
