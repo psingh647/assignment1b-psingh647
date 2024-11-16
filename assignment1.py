@@ -3,67 +3,104 @@
 '''
 OPS445 Assignment 1 
 Program: assignment1.py 
-The python code in this file is original work written by
-"Student Name". No code in this file is copied from any other source 
-except those provided by the course instructor, including any person, 
-textbook, or on-line resource. I have not shared this python script 
-with anyone or anything except for submission for grading.  
-I understand that the Academic Honesty Policy will be enforced and 
-violators will be reported and appropriate action will be taken.
+This script is the original work of Prabhnoor Singh. No code in this file 
+has been copied from any external source except for materials provided 
+by the course instructor. I understand and will abide by the Academic 
+Honesty Policy, and I have not shared this script with anyone other 
+than for grading purposes.
 
-Author: <Student Name>
-Semester: <Fall/Winter/Summer> <Year>
-Description: <fill this in>
+Author: Prabhnoor Singh
+Student ID: psingh647
+Semester: Fall 2024
+Description:
+This script calculates past and future dates based on a given start date 
+and a divisor of a year. It validates the input, handles leap years, and 
+accurately transitions between days, months, and years.
 '''
+
 
 import sys
 
 def leap_year(year: int) -> bool:
-    "return true if the year is a leap year"
-    ...
+    """
+    Checks if a given year is a leap year.
+    
+    Leap years are divisible by 4, but not by 100 unless also divisible by 400.
+    If it's a leap year, February will have 29 days instead of 28.
 
-def mon_max(month:int, year:int) -> int:
-    "returns the maximum day for a given month. Includes leap year check"
-    ...
+    Args:
+        year (int): The year to check.
 
-def after(date: str) -> str: 
+    Returns:
+        bool: True if the year is a leap year, False otherwise.
+    """
+    return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
+
+def mon_max(month: int, year: int) -> int:
+    """
+    Gets the maximum number of days in a given month for a specific year.
+    
+    This function takes into account leap years for February.
+
+    Args:
+        month (int): The month (1 for January, 2 for February, etc.).
+        year (int): The year (used to check for leap years).
+
+    Returns:
+        int: The maximum number of days in the given month.
+    """
+    # Standard days in each month
+    mon_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
+                7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+
+    # Adjust February's days if it's a leap year
+    if month == 2 and leap_year(year):
+        return 29
+    return mon_dict.get(month, 0)
+
+def after(date: str) -> str:  
     '''
     after() -> date for next day in YYYY-MM-DD string format
 
     Return the date for the next day of the given date in YYYY-MM-DD format.
     This function has been tested to work for year after 1582
     '''
-    year, mon, day= (int(x) for x in date.split('-'))
-    day += 1  # next day
+    year, mon, day = (int(x) for x in date.split('-'))
+    day += 1  # Increment the day
 
+    # Leap year logic
     lyear = year % 4
     if lyear == 0:
         leap_flag = True
     else:
-        leap_flag = False  # this is not a leap year
+        leap_flag = False  # Not a leap year
 
     lyear = year % 100
     if lyear == 0:
-        leap_flag = False  # this is not a leap year
+        leap_flag = False  # Not a leap year
 
     lyear = year % 400
     if lyear == 0:
-        leap_flag = True  # this is a leap year
-    
-    mon_dict= {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
-           7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+        leap_flag = True  # Leap year
+
+    # Month-to-days mapping
+    mon_dict = {1: 31, 2: 28, 3: 31, 4: 30, 5: 31, 6: 30,
+                7: 31, 8: 31, 9: 30, 10: 31, 11: 30, 12: 31}
+
+    # Adjust February for leap years
     if mon == 2 and leap_flag:
         mon_max = 29
     else:
         mon_max = mon_dict[mon]
-    
+
+    # Handle overflow to the next month or year
     if day > mon_max:
         mon += 1
         if mon > 12:
             year += 1
             mon = 1
-        day = 1  # if tmp_day > this month's max, reset to 1 
-    return f"{year}-{mon:02}-{day:02}"
+        day = 1  # Reset day to 1 for the new month
+    return f"{year}-{mon:02}-{day:02}" 
 
 def before(date: str) -> str:
     "Returns previous day's date as YYYY-MM-DD"
