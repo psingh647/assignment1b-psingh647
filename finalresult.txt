@@ -1,0 +1,43 @@
+test_after_date (__main__.TestAfter) ... ok
+test_dtypes (__main__.TestAfter)
+after() is returning string ... ok
+test_leap (__main__.TestAfter)
+after() works with leap year ... ok
+test_before_date (__main__.TestBefore) ... ok
+test_dtypes (__main__.TestBefore)
+before() is returning string ... ok
+test_leap (__main__.TestBefore)
+before() works with leap year ... ok
+test_after_dbda (__main__.TestDBDA)
+does dbda work with positive numbers ... ok
+test_before_dbda (__main__.TestDBDA)
+does dbda work with negative numbers ... ok
+test_arg_length (__main__.TestFinal)
+when args != 2, output contains usage ... ok
+test_invalid_date (__main__.TestFinal)
+output contains usage when bad date ... ok
+test_invalid_step (__main__.TestFinal)
+output contains usage when bad step ... ok
+test_proper_after (__main__.TestFinal)
+output contain XX days from now w/ correct date ... ok
+test_proper_before (__main__.TestFinal)
+output contain 'XX days ago' w/ correct date ... ok
+test_proper_step (__main__.TestFinal)
+main print returning proper step ... ok
+test_leap_func (__main__.TestLeap)
+leap_year function exists and returns True/False ... ok
+test_unallowed_module (__main__.TestModuleRestriction)
+you have imported a prohibited module ... ok
+test_leap_max (__main__.TestMonMax)
+test mon_max with feb of leap/non-leap years ... ok
+test_mon_max (__main__.TestMonMax)
+test the mon_max function ... ok
+test_invalid_dates (__main__.TestValidDate)
+making sure invalid dates return False ... ok
+test_valid_dates (__main__.TestValidDate)
+making sure valid dates return True ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.366s
+
+OK
